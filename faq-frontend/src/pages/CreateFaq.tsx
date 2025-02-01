@@ -13,8 +13,9 @@ const CreateFAQ = () => {
     const [languageCode, setLanguageCode] = useState<string>("");
 
     useEffect(() => {
+        console.log(import.meta.env.VITE_APP_API_URL);
         axios
-            .get("http://localhost:3000/api/v1/languages")
+            .get(`${import.meta.env.VITE_APP_API_URL}/languages`)
             .then((response) => setLanguages(response.data.Languages))
             .catch((err) => console.error("Error fetching languages", err));
     }, []);
@@ -24,10 +25,13 @@ const CreateFAQ = () => {
         const newFAQ = { question, answer, languageCode };
 
         try {
-            const response = await axios.post("http://localhost:3000/api/v1/create-faq", {
+            const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/create-faq`, {
                 userInput: newFAQ,
             });
+            setAnswer("")
+            setQuestion("")
             alert(response.data.msg);
+
         } catch (error) {
             console.error("Error creating FAQ:", error);
         }
@@ -75,7 +79,7 @@ const CreateFAQ = () => {
                         ))}
                     </select>
                 </div>
-                <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded-md">
+                <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded-md cursor-pointer">
                     Submit FAQ
                 </button>
             </form>

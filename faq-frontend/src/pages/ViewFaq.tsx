@@ -18,7 +18,7 @@ const ViewFAQ = () => {
     useEffect(() => {
         setLoadingLanguages(true);
         axios
-            .get("http://localhost:3000/api/v1/languages")
+            .get(`${import.meta.env.VITE_APP_API_URL}/languages`)
             .then((response) => {
                 setLanguages(response.data.Languages);
                 setLoadingLanguages(false);
@@ -38,7 +38,7 @@ const ViewFAQ = () => {
     const fetchFaqs = (languageCode: string) => {
         setLoadingFaqs(true);
         axios
-            .get(`http://localhost:3000/api/v1/get-faqs?lang=${languageCode}`)
+            .get(`${import.meta.env.VITE_APP_API_URL}/get-faqs?lang=${languageCode}`)
             .then((response) => {
                 setFaqs(response.data.result);
                 setLoadingFaqs(false);
