@@ -6,8 +6,8 @@ dotenv.config();
 const port = process.env.PORT
 
 
+const app = express();
 async function main() {
-    const app = express();
 
     app.use(cors())
     app.use(express.json())
@@ -18,3 +18,4 @@ async function main() {
     })
 }
 main()
+export default app;

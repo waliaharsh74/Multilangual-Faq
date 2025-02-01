@@ -185,9 +185,11 @@ routes.post('/create-faq', async (req: Request, res: Response) => {
 routes.delete('/delete-faq/:id', async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const faqToDelete = await prisma.fAQ.findUnique({ where: { id } });
+        const faqToDelete = await prisma.fAQTranslation.delete({ where: { id } });
+        console.log(faqToDelete);
         if (!faqToDelete) {
             res.status(404).json({ error: "FAQ not found" });
+            return
         }
         await redis.del('faqs_en');
         res.status(200).json({ msg: "FAQ Deleted Successfully" });
